@@ -74,9 +74,8 @@
                 <header class="p-3 border-b border-gray-200/20 flex justify-between items-center bg-white/10 backdrop-blur-sm text-white">
                     <div class="flex items-center">
                         <button id="back-button" class="p-2 rounded-full hover:bg-black/20 md:hidden mr-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></button>
-                        <div class="flex items-center cursor-pointer">
-                            <div id="chat-header-icon" class="w-10 h-10 rounded-full object-cover ml-3 flex items-center justify-center"></div>
-                            <div><h2 id="chat-header-title" class="text-lg font-semibold"></h2><p id="chat-header-status" class="text-xs text-gray-300"></p></div>
+                        <div id="chat-header-profile" class="flex items-center cursor-pointer">
+                            <!-- Header profile content is dynamic -->
                         </div>
                     </div>
                 </header>
@@ -97,17 +96,108 @@
     <!-- Online Users Counter Script -->
     <script id="_wauz9d">var _wau = _wau || []; _wau.push(["dynamic", "1yzxeoicrj", "z9d", "1c4587ffffff", "small"]);</script><script async src="//waust.at/d.js"></script>
     
-    <!-- Data is now external -->
-    <script src="./data.js"></script>
-
     <script>
-    document.addEventListener('DOMContentLoaded', async function () {
+    // Data is now embedded directly in the HTML file
+    const courseData = [
+      {
+        "id": "intro",
+        "title": "معرفی دوره",
+        "description": "خوش آمدید! برای شروع اینجا کلیک کنید.",
+        "img": "https://placehold.co/100x100/8774E1/FFFFFF?text=👋",
+        "status": "آنلاین",
+        "messages": [
+            { "type": "q", "text": "سلام! به دوره تعاملی مهندسی نرم‌افزار خوش آمدید." },
+            { "type": "a", "text": "سلام! ممنون. این دوره چطور کار می‌کنه؟" },
+            { "type": "q", "text": "در این دوره، مباحث کلیدی مهندسی نرم‌افزار را در قالب گفتگو یاد می‌گیرید. هر درس یک آزمون کوتاه هم در انتهای خودش داره." },
+            { "type": "a", "text": "عالیه! شروع می‌کنم." }
+        ],
+        "quiz": []
+      },
+      {
+        "id": "lesson1",
+        "title": "جلسه ۲: ماهیت نرم افزار",
+        "description": "آشنایی با ماهیت، خصوصیات و چالش‌های نرم افزار.",
+        "img": "https://placehold.co/100x100/3498DB/FFFFFF?text=L1",
+        "messages": [
+          { "type": "q", "text": "نرم افزار چه نقش دوگانه ای دارد؟" },
+          { "type": "a", "text": "نرم افزار هم نوعی محصول است و همزمان وسیله‌ای برای تحویل یک محصول محسوب می‌شود." },
+          { "type": "q", "text": "نرم افزار از چه اجزایی تشکیل شده است؟" },
+          { "type": "a", "text": "نرم افزار عبارت است از:<br>- دستورالعمل‌ها (کد برنامه)<br>- ساختمان‌های داده‌ای<br>- اطلاعات توصیفی (مستندات)" },
+          { "type": "q", "text": "چرا نرم افزار فرسوده نمی‌شود بلکه زوال می‌یابد؟" },
+          { "type": "a", "text": "نرم افزار دچار فرسایش فیزیکی نمی‌شود. اما با هر تغییر و اصلاح، احتمال ورود عیوب جدید وجود دارد که باعث خیز ناگهانی در منحنی آهنگ شکست می‌شود. این فرآیند 'زوال' نامیده می‌شود." },
+          { "type": "q", "text": "لایه های مهندسی نرم افزار کدامند؟" },
+          { "type": "a", "text": "از پایین به بالا:<br>۱. توجه به کیفیت<br>۲. فرآیندها<br>۳. روش‌ها<br>۴. ابزارها" }
+        ],
+        "quiz": [
+          { "q": "کدام یک جزو اجزای اصلی نرم افزار نیست؟", "o": ["دستورالعمل‌ها", "سخت افزار", "ساختمان‌های داده‌ای", "مستندات"], "a": 1 },
+          { "q": "افزایش ناگهانی نرخ شکست نرم افزار پس از اعمال تغییرات چه نام دارد؟", "o": ["فرسودگی", "زوال", "نقص اولیه", "استهلاک"], "a": 1 },
+          { "q": "کدام لایه، پایه و اساس سایر لایه‌های مهندسی نرم افزار است؟", "o": ["ابزارها", "روش‌ها", "فرآیندها", "توجه به کیفیت"], "a": 3 }
+        ]
+      },
+      {
+        "id": "lesson2",
+        "title": "جلسه ۳ و ۴: مدل‌های فرآیند",
+        "description": "بررسی مدل‌های تجویزی مانند آبشاری، V و مارپیچی.",
+        "img": "https://placehold.co/100x100/8E44AD/FFFFFF?text=L2",
+        "messages": [
+          { "type": "q", "text": "مدل آبشاری (Waterfall) چیست و چه مشکلاتی دارد؟" },
+          { "type": "a", "text": "یک روش سیستماتیک و ترتیبی است. مشکلات اصلی آن:<br>- پروژه‌های واقعی به ندرت ترتیبی هستند.<br>- مشتری باید تا انتهای پروژه برای دیدن نسخه کاری صبر کند." },
+          { "type": "q", "text": "مدل V چیست؟" },
+          { "type": "a", "text": "نوعی مدل آبشاری است که چگونگی ارتباط کنش‌های وارسی و اعتبارسنجی (آزمون) با کنش‌های قبلی مهندسی (تحلیل و طراحی) را نشان می‌دهد." },
+          { "type": "q", "text": "مدل مارپیچی (Spiral) چیست؟" },
+          { "type": "a", "text": "یک مدل تکاملی است که ماهیت تکراری مدل نمونه‌سازی را با جنبه‌های کنترلی مدل آبشاری تلفیق می‌کند و بر تحلیل ریسک تاکید دارد." }
+        ],
+        "quiz": [
+          { "q": "کدام مدل، ارتباط بین کنش‌های آزمون و طراحی را به خوبی نشان می‌دهد؟", "o": ["آبشاری", "افزایشی", "V", "مارپیچی"], "a": 2 },
+          { "q": "تاکید بر تحلیل ریسک در هر چرخه، از ویژگی‌های اصلی کدام مدل است؟", "o": ["تکاملی", "افزایشی", "مارپیچی", "همروند"], "a": 2 },
+          { "q": "استفاده از Use Case ها از ویژگی‌های اصلی کدام فرآیند است؟", "o": ["فرآیند یکپارچه", "مدل مارپیچی", "مدل V", "مدل آبشاری"], "a": 0 }
+        ]
+      },
+      {
+        "id": "lesson3",
+        "title": "جلسه ۵ و ۶: توسعه چابک (Agile)",
+        "description": "بررسی فلسفه و اصول چابکی و معرفی مدل های XP و اسکرام.",
+        "img": "https://placehold.co/100x100/E67E22/FFFFFF?text=L3",
+        "messages": [
+          { "type": "q", "text": "بیانیه چابک (Agile Manifesto) بر چه ارزش‌هایی تأکید دارد؟" },
+          { "type": "a", "text": "برتری موارد زیر را اعلام می‌کند:<br>- افراد و تعامل‌ها بر فرآیندها<br>- نرم افزار عملیاتی بر مستندات جامع<br>- همکاری با مشتری بر قرارداد<br>- پاسخ به تغییر بر دنبال کردن برنامه" },
+          { "type": "q", "text": "برنامه نویسی جفتی (Pair Programming) چگونه انجام می‌شود؟" },
+          { "type": "a", "text": "دو نفر همزمان پشت یک کامپیوتر کار می‌کنند. یک نفر به عنوان 'راننده' (Driver) کد را می‌نویسد و نفر دیگر به عنوان 'ناوبر' (Navigator) کد را بررسی می‌کند." },
+          { "type": "q", "text": "اسکرام (Scrum) چیست؟" },
+          { "type": "a", "text": "یک چارچوب برای توسعه چابک است که نرم افزار در دوره‌هایی به نام اسپرینت (Sprint) توسعه پیدا می‌کند که معمولاً ۲ تا ۴ هفته طول می‌کشد." }
+        ],
+        "quiz": [
+          { "q": "کدام یک از ارزش‌های اصلی بیانیه چابک نیست؟", "o": ["افراد و تعامل‌ها", "نرم افزار عملیاتی", "دنبال کردن یک برنامه", "همکاری با مشتری"], "a": 2 },
+          { "q": "در روش برنامه نویسی جفتی، فردی که کد را می‌نویسد چه نام دارد؟", "o": ["ناوبر (Navigator)", "راننده (Driver)", "معمار (Architect)", "آزمونگر (Tester)"], "a": 1 },
+          { "q": "دوره‌های زمانی ۲ تا ۴ هفته‌ای در اسکرام چه نامیده می‌شوند؟", "o": ["ایترشن", "اسپرینت", "ریلیز", "مایلستون"], "a": 1 }
+        ]
+      },
+      {
+        "id": "lesson4",
+        "title": "جلسه ۷: اصول راهنما",
+        "description": "مروری بر اصول هسته‌ای، راهنمای فرآیند و فعالیت‌های چارچوبی.",
+        "img": "https://placehold.co/100x100/16A085/FFFFFF?text=L4",
+        "messages": [
+          { "type": "q", "text": "اصل 'Keep it simple' جزو کدام دسته از اصول است؟" },
+          { "type": "a", "text": "این اصل جزو اصول هسته‌ای مهندسی نرم افزار است." },
+          { "type": "q", "text": "قواعد اصلی آزمون چیست؟" },
+          { "type": "a", "text": "<b>قواعد:</b><br>- آزمون فرایند اجرای برنامه به قصد یافتن خطا است.<br>- آزمون موفق، آزمونی است که یک خطای جدید را کشف کند." },
+          { "type": "q", "text": "اصل پارتو در آزمون بیانگر چیست؟" },
+          { "type": "a", "text": "این اصل بیان می‌کند که ۸۰% خطاها در ۲۰% از مؤلفه‌های نرم‌افزار یافت می‌شوند." }
+        ],
+        "quiz": [
+          { "q": "اصل 'Keep it simple' جزو کدام دسته از اصول است؟", "o": ["راهنمای فرآیند", "ارتباطی", "هسته‌ای", "برنامه‌ریزی"], "a": 2 },
+          { "q": "کدام یک از موارد زیر جزو قواعد آزمون است؟", "o": ["آزمون کامل امکان‌پذیر نیست", "آزمون موفق خطای جدید کشف می‌کند", "آزمون از کوچک به بزرگ است", "اصل پارتو کاربرد دارد"], "a": 1 },
+          { "q": "اصل پارتو در آزمون بیانگر چیست؟", "o": ["آزمون کامل نیست", "آزمون از کوچک به بزرگ است", "۸۰% خطاها در ۲۰% مؤلفه‌ها یافت می‌شوند", "آزمون باید قابل رهگیری باشد"], "a": 2 }
+        ]
+      }
+    ];
+
+    document.addEventListener('DOMContentLoaded', function () {
         // DOM Elements
         const chatList = document.getElementById('chat-list');
         const messagesContainer = document.getElementById('messages-container');
-        const chatHeaderTitle = document.getElementById('chat-header-title');
-        const chatHeaderIcon = document.getElementById('chat-header-icon');
-        const chatHeaderStatus = document.getElementById('chat-header-status');
+        const chatHeaderProfile = document.getElementById('chat-header-profile');
         const mainContent = document.getElementById('main-content');
         const placeholder = document.getElementById('placeholder');
         const chatListContainer = document.getElementById('chat-list-container');
@@ -120,19 +210,17 @@
         let messageQueue = [];
         let isTyping = false;
         let quizState = { active: false, questions: [], currentQ: 0, score: 0 };
-        let allData = window.courseData;
-
+        
         // Functions
         const populateChatList = () => {
-            allData.forEach(chat => {
+            chatList.innerHTML = ''; // Clear existing list
+            courseData.forEach(chat => {
                 const li = document.createElement('li');
                 li.className = 'chat-item';
                 li.dataset.chat = chat.id;
                 li.innerHTML = `
                     <div class="flex items-center p-3 cursor-pointer hover:bg-gray-200 border-b">
-                        <div class="w-12 h-12 rounded-full ml-3 flex items-center justify-center text-white" style="background-color: ${chat.iconColor || '#888'}">
-                            ${chat.icon}
-                        </div>
+                        <img class="w-12 h-12 rounded-full ml-3 object-cover" src="${chat.img}" alt="${chat.title}">
                         <div class="flex-1 overflow-hidden">
                             <h3 class="font-semibold">${chat.title}</h3>
                             <p class="text-sm text-gray-600 truncate">${chat.description}</p>
@@ -178,7 +266,7 @@
         const processMessageQueue = () => {
             if (messageQueue.length === 0) {
                 isTyping = false;
-                const currentChat = allData.find(c => c.id === currentChatId);
+                const currentChat = courseData.find(c => c.id === currentChatId);
                 if (currentChat && currentChat.quiz && currentChat.quiz.length > 0) {
                     showStartQuizButton();
                 }
@@ -213,13 +301,16 @@
             messageFooter.classList.remove('hidden');
             messagesContainer.innerHTML = '';
             
-            const chatInfo = allData.find(c => c.id === chatId);
+            const chatInfo = courseData.find(c => c.id === chatId);
             if (!chatInfo) return;
 
-            chatHeaderTitle.textContent = chatInfo.title;
-            chatHeaderIcon.innerHTML = chatInfo.icon;
-            chatHeaderIcon.style.backgroundColor = chatInfo.iconColor || '#888';
-            chatHeaderStatus.textContent = chatInfo.status || 'آنلاین';
+            chatHeaderProfile.innerHTML = `
+                <img class="w-10 h-10 rounded-full object-cover ml-3" src="${chatInfo.img}" alt="${chatInfo.title}">
+                <div>
+                    <h2 class="text-lg font-semibold">${chatInfo.title}</h2>
+                    <p class="text-xs text-gray-300">${chatInfo.status || 'آنلاین'}</p>
+                </div>
+            `;
             
             document.querySelectorAll('.chat-item').forEach(item => item.classList.toggle('active-chat', item.dataset.chat === chatId));
             
@@ -232,7 +323,7 @@
         };
 
         const startLessonQuiz = () => {
-            const chatInfo = allData.find(c => c.id === currentChatId);
+            const chatInfo = courseData.find(c => c.id === currentChatId);
             if (!chatInfo || !chatInfo.quiz) return;
 
             quizState.active = true;
@@ -327,16 +418,19 @@
         style.innerHTML = `@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } } .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }`;
         document.head.appendChild(style);
         
-        if (window.innerWidth >= 768) {
-            placeholder.classList.remove('hidden');
-            mainContent.classList.add('hidden'); mainContent.classList.remove('flex');
-        } else {
-             mainContent.classList.add('hidden'); mainContent.classList.remove('flex');
-             placeholder.classList.add('hidden'); placeholder.classList.remove('md:flex');
-        }
+        const initApp = () => {
+            populateChatList();
+            if (window.innerWidth >= 768) {
+                placeholder.classList.remove('hidden');
+                mainContent.classList.add('hidden');
+            } else {
+                mainContent.classList.add('hidden');
+                placeholder.classList.add('hidden');
+                switchChat('intro'); // On mobile, show a chat by default
+            }
+        };
 
-        populateChatList();
-        switchChat('intro');
+        initApp();
     });
     </script>
 </body>
