@@ -64,24 +64,7 @@
 
                 <div class="flex-1 overflow-y-auto custom-scrollbar">
                     <ul id="chat-list">
-                        <li class="chat-item" data-chat="intro">
-                            <div class="flex items-center p-3 cursor-pointer hover:bg-gray-200 border-b"><img class="w-12 h-12 rounded-full ml-3" src="https://placehold.co/100x100/8774E1/FFFFFF?text=👋" alt="معرفی"><div class="flex-1"><h3 class="font-semibold">معرفی دوره</h3><p class="text-sm text-gray-600 truncate">خوش آمدید! برای شروع اینجا کلیک کنید.</p></div></div>
-                        </li>
-                        <li class="chat-item" data-chat="lesson1">
-                            <div class="flex items-center p-3 cursor-pointer hover:bg-gray-200 border-b"><img class="w-12 h-12 rounded-full ml-3" src="https://placehold.co/100x100/42A5F5/FFFFFF?text=۱" alt="درس ۱"><div class="flex-1"><h3 class="font-semibold">درس ۱: ماهیت نرم‌افزار</h3><p class="text-sm text-gray-600 truncate">خصوصیات و تفاوت با سخت‌افزار</p></div></div>
-                        </li>
-                        <li class="chat-item" data-chat="lesson2">
-                            <div class="flex items-center p-3 cursor-pointer hover:bg-gray-200 border-b"><img class="w-12 h-12 rounded-full ml-3" src="https://placehold.co/100x100/66BB6A/FFFFFF?text=۲" alt="درس ۲"><div class="flex-1"><h3 class="font-semibold">درس ۲: فرآیند و مدل‌ها</h3><p class="text-sm text-gray-600 truncate">مدل‌های آبشاری، افزایشی و تکاملی</p></div></div>
-                        </li>
-                        <li class="chat-item" data-chat="lesson3">
-                            <div class="flex items-center p-3 cursor-pointer hover:bg-gray-200 border-b"><img class="w-12 h-12 rounded-full ml-3" src="https://placehold.co/100x100/FFA726/FFFFFF?text=۳" alt="درس ۳"><div class="flex-1"><h3 class="font-semibold">درس ۳: توسعه چابک (Agile)</h3><p class="text-sm text-gray-600 truncate">فلسفه، اصول و مدل‌های XP و Scrum</p></div></div>
-                        </li>
-                        <li class="chat-item" data-chat="lesson4">
-                            <div class="flex items-center p-3 cursor-pointer hover:bg-gray-200 border-b"><img class="w-12 h-12 rounded-full ml-3" src="https://placehold.co/100x100/EF5350/FFFFFF?text=۴" alt="درس ۴"><div class="flex-1"><h3 class="font-semibold">درس ۴: اصول راهنما</h3><p class="text-sm text-gray-600 truncate">اصول هسته‌ای و راهنمای فرآیند</p></div></div>
-                        </li>
-                        <li class="chat-item" data-chat="quiz">
-                            <div class="flex items-center p-3 cursor-pointer hover:bg-gray-200 bg-green-50"><img class="w-12 h-12 rounded-full ml-3" src="https://placehold.co/100x100/26A69A/FFFFFF?text=✔️" alt="آزمون"><div class="flex-1"><h3 class="font-bold text-green-700">آزمون آنلاین</h3><p class="text-sm text-green-600 truncate">دانش خود را بسنجید!</p></div></div>
-                        </li>
+                        <!-- Chat items will be dynamically inserted here -->
                     </ul>
                 </div>
             </aside>
@@ -91,7 +74,10 @@
                 <header class="p-3 border-b border-gray-200/20 flex justify-between items-center bg-white/10 backdrop-blur-sm text-white">
                     <div class="flex items-center">
                         <button id="back-button" class="p-2 rounded-full hover:bg-black/20 md:hidden mr-2"><svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg></button>
-                        <div class="flex items-center cursor-pointer"><img id="chat-header-img" class="w-10 h-10 rounded-full object-cover ml-3" src="" alt="Avatar"><div><h2 id="chat-header-title" class="text-lg font-semibold"></h2><p id="chat-header-status" class="text-xs text-gray-300"></p></div></div>
+                        <div class="flex items-center cursor-pointer">
+                            <div id="chat-header-icon" class="w-10 h-10 rounded-full object-cover ml-3 flex items-center justify-center"></div>
+                            <div><h2 id="chat-header-title" class="text-lg font-semibold"></h2><p id="chat-header-status" class="text-xs text-gray-300"></p></div>
+                        </div>
                     </div>
                 </header>
 
@@ -110,88 +96,17 @@
 
     <!-- Online Users Counter Script -->
     <script id="_wauz9d">var _wau = _wau || []; _wau.push(["dynamic", "1yzxeoicrj", "z9d", "1c4587ffffff", "small"]);</script><script async src="//waust.at/d.js"></script>
+    
+    <!-- Data is now external -->
+    <script src="./data.js"></script>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Data Objects
-        const chatData = {
-            intro: {
-                title: 'معرفی دوره', img: 'https://placehold.co/100x100/8774E1/FFFFFF?text=👋', status: 'آنلاین',
-                messages: [
-                    { type: 'in', text: 'سلام! به دوره تعاملی مهندسی نرم‌افزار خوش آمدید.' },
-                    { type: 'in', text: 'در این دوره، مباحث کلیدی مهندسی نرم‌افزار را در قالب گفتگو یاد می‌گیرید.' },
-                    { type: 'in', text: 'برای شروع، یکی از درس‌ها را از منوی کنار انتخاب کنید. پس از مطالعه، می‌توانید در آزمون آنلاین شرکت کنید.' },
-                ]
-            },
-            lesson1: {
-                title: 'درس ۱: ماهیت نرم‌افزار', img: 'https://placehold.co/100x100/42A5F5/FFFFFF?text=۱', status: 'آنلاین',
-                messages: [
-                    { type: 'q', text: 'نرم افزار چه نقش دوگانه ای دارد؟' },
-                    { type: 'a', text: 'نرم افزار هم نوعی محصول است و همزمان وسیله ای برای تحویل یک محصول محسوب میشود.' },
-                    { type: 'q', text: 'خصوصیات اصلی نرم افزار که آن را از سخت افزار متمایز میکند چیست؟' },
-                    { type: 'a', text: '۱. یک عنصر منطقی است تا فیزیکی<br>۲. مهندسی و بسط داده میشود نه اینکه ساخته شود.<br>۳. فرسوده نمیشود.<br>۴. اغلب به صورت سفارشی ساخته میشود.' },
-                    { type: 'q', text: 'چرا نرم افزار فرسوده نمیشود بلکه زوال مییابد؟' },
-                    { type: 'a', text: 'چون به ناملایمات محیطی نفوذ پذیر نیست. اما با هر تغییر و اصلاح، احتمال ورود عیوب جدید وجود دارد که باعث خیز ناگهانی در منحنی آهنگ شکست میشود. این فرآیند "زوال" نامیده میشود.' },
-                ]
-            },
-            lesson2: {
-                title: 'درس ۲: فرآیند و مدل‌ها', img: 'https://placehold.co/100x100/66BB6A/FFFFFF?text=۲', status: 'آنلاین',
-                messages: [
-                    { type: 'q', text: 'لایه های مهندسی نرم افزار کدامند؟' },
-                    { type: 'a', text: 'از پایین به بالا: ۱. توجه به کیفیت (Quality Focus) ۲. فرآیندها (Processes) ۳. روشها (Methods) ۴. ابزارها (Tools)' },
-                    { type: 'q', text: 'مدل آبشاری (Waterfall) چیست و چه مشکلاتی دارد؟' },
-                    { type: 'a', text: 'یک روش سیستماتیک و ترتیبی است. مشکلات اصلی آن: ۱. پروژه های واقعی به ندرت ترتیبی هستند. ۲. مشتری باید تا انتهای پروژه برای دیدن نسخه کاری صبر کند. ۳. برخی اعضای تیم باید منتظر دیگران بمانند.' },
-                    { type: 'q', text: 'مدل مارپیچی (Spiral) چیست؟' },
-                    { type: 'a', text: 'یک مدل تکاملی است که ماهیت تکراری مدل نمونه سازی را با جنبه های کنترلی و سیستماتیک مدل آبشاری تلفیق میکند. نرم افزار به صورت یک سری نگارشهای تکاملی توسعه مییابد.' },
-                ]
-            },
-            lesson3: {
-                title: 'درس ۳: توسعه چابک (Agile)', img: 'https://placehold.co/100x100/FFA726/FFFFFF?text=۳', status: 'آنلاین',
-                messages: [
-                    { type: 'q', text: 'بیانیه چابک (Agile Manifesto) بر چه ارزشهایی تأکید دارد؟' },
-                    { type: 'a', text: '۱. افراد و تعاملها بر فرآیندها و ابزارها<br>۲. نرم افزار عملیاتی بر مستندات جامع<br>۳. همکاری با مشتری بر مذاکره قرارداد<br>۴. پاسخ به تغییر بر دنبال کردن یک برنامه' },
-                    { type: 'q', text: 'برنامه نویسی مفرط (XP) چیست و ارزشهای آن کدامند؟' },
-                    { type: 'a', text: 'XP پرکاربردترین رویکرد چابک است. ارزشهای آن: ارتباطات، سادگی، بازخورد، جرأت، و احترام.' },
-                    { type: 'q', text: 'اسکرام (Scrum) چیست؟' },
-                    { type: 'a', text: 'یک چارچوب چابک برای پروژه های با تغییرات زیاد است. نرم افزار در دوره هایی به نام اسپرینت (معمولاً ۲ تا ۴ هفته) توسعه پیدا میکند.' },
-                ]
-            },
-            lesson4: {
-                title: 'درس ۴: اصول راهنما', img: 'https://placehold.co/100x100/EF5350/FFFFFF?text=۴', status: 'آنلاین',
-                messages: [
-                    { type: 'q', text: 'اصول هسته ای مهندسی نرم افزار کدامند؟' },
-                    { type: 'a', text: '۱. فراهم ساختن ارزش برای کاربر<br>۲. حفظ سادگی<br>۳. حفظ چشم انداز<br>۴. دانستن اینکه دیگران محصول را درک خواهند کرد<br>۵. نگاه به آینده<br>۶. برنامه ریزی برای استفاده مجدد<br>۷. تفکر' },
-                    { type: 'q', text: 'مهمترین اصول ارتباطی چیست؟' },
-                    { type: 'a', text: 'گوش سپردن، آماده شدن قبل از ارتباط، ارتباط رودررو، یادداشت برداری، و تلاش برای همکاری.' },
-                    { type: 'q', text: 'قواعد اصلی آزمون چیست؟' },
-                    { type: 'a', text: '۱. آزمون فرایند اجرای برنامه به قصد یافتن خطا است.<br>۲. یک مورد آزمون خوب، خطاها را با احتمال بالایی کشف میکند.<br>۳. آزمون موفق، آزمونی است که یک خطای جدید را کشف کند.' },
-                ]
-            },
-            quiz: {
-                title: 'آزمون آنلاین', img: 'https://placehold.co/100x100/26A69A/FFFFFF?text=✔️', status: 'در حال برگزاری آزمون...'
-            }
-        };
-
-        const quizQuestions = [
-            { q: "کدام مورد جزو خصوصیات اصلی نرم افزار نیست؟", o: ["فرسوده میشود", "یک عنصر منطقی است", "مهندسی میشود", "اغلب سفارشی ساخته میشود"], a: 0 },
-            { q: "کدام لایه، پایه و اساس تمام لایه های مهندسی نرم افزار است؟", o: ["روشها", "فرآیندها", "توجه به کیفیت", "ابزارها"], a: 2 },
-            { q: "در کدام مدل فرآیند، مشتری باید تا انتهای پروژه برای دیدن نسخه کاری صبر کند؟", o: ["چابک", "آبشاری", "مارپیچی", "افزایشی"], a: 1 },
-            { q: "کدام مدل ماهیت تکراری نمونه سازی را با کنترل مدل آبشاری تلفیق میکند؟", o: ["مدل V", "مدل افزایشی", "مدل همروند", "مدل مارپیچی"], a: 3 },
-            { q: "کدام مورد جزو ارزش های بیانیه چابک نیست؟", o: ["افراد و تعاملها بر فرآیندها", "نرم افزار عملیاتی بر مستندات", "مذاکره قرارداد بر همکاری با مشتری", "پاسخ به تغییر بر دنبال کردن برنامه"], a: 2 },
-            { q: "پرکاربردترین رویکرد در توسعه نرم افزار به روش چابک کدام است؟", o: ["اسکرام (Scrum)", "برنامه نویسی مفرط (XP)", "کانبان (Kanban)", "مدل V"], a: 1 },
-            { q: "دوره های توسعه در اسکرام چه نامیده میشوند؟", o: ["ایترشن (Iteration)", "فاز (Phase)", "اسپرینت (Sprint)", "نگارش (Release)"], a: 2 },
-            { q: "کدام اصل به معنای 'هنر به حداکثر رساندن کارهایی که انجام نمیشوند' است؟", o: ["جرأت", "بازخورد", "احترام", "سادگی"], a: 3 },
-            { q: "اصل پارتو در آزمون به چه معناست؟", o: ["آزمون کامل امکان پذیر نیست", "۸۰٪ خطاها در ۲۰٪ مؤلفه ها یافت میشوند", "آزمون باید از کوچک به بزرگ باشد", "همه آزمون ها باید قابل رهگیری باشند"], a: 1 },
-            { q: "مؤثرترین روش انتقال اطلاعات طبق اصول چابکی کدام است؟", o: ["مستندات جامع", "ایمیل", "گفتگوی رودررو", "جلسات هفتگی"], a: 2 },
-            { q: "کدام فعالیت چارچوبی شامل تولید کد و انجام آزمون است؟", o: ["برنامه ریزی", "مدل سازی", "ساخت", "استقرار"], a: 2 },
-            { q: "به سیستم های نرم افزاری قدیمی که دهه ها قبل ساخته شده اند چه میگویند؟", o: ["نرم افزار تعبیه شده", "نرم افزار قدیمی (Legacy)", "نرم افزار خط تولید", "نرم افزار سیستمی"], a: 1 },
-        ];
-
+    document.addEventListener('DOMContentLoaded', async function () {
         // DOM Elements
-        const chatItems = document.querySelectorAll('.chat-item');
+        const chatList = document.getElementById('chat-list');
         const messagesContainer = document.getElementById('messages-container');
         const chatHeaderTitle = document.getElementById('chat-header-title');
-        const chatHeaderImg = document.getElementById('chat-header-img');
+        const chatHeaderIcon = document.getElementById('chat-header-icon');
         const chatHeaderStatus = document.getElementById('chat-header-status');
         const mainContent = document.getElementById('main-content');
         const placeholder = document.getElementById('placeholder');
@@ -205,74 +120,133 @@
         let messageQueue = [];
         let isTyping = false;
         let quizState = { active: false, questions: [], currentQ: 0, score: 0 };
+        let allData = window.courseData;
 
         // Functions
+        const populateChatList = () => {
+            allData.forEach(chat => {
+                const li = document.createElement('li');
+                li.className = 'chat-item';
+                li.dataset.chat = chat.id;
+                li.innerHTML = `
+                    <div class="flex items-center p-3 cursor-pointer hover:bg-gray-200 border-b">
+                        <div class="w-12 h-12 rounded-full ml-3 flex items-center justify-center text-white" style="background-color: ${chat.iconColor || '#888'}">
+                            ${chat.icon}
+                        </div>
+                        <div class="flex-1 overflow-hidden">
+                            <h3 class="font-semibold">${chat.title}</h3>
+                            <p class="text-sm text-gray-600 truncate">${chat.description}</p>
+                        </div>
+                    </div>
+                `;
+                chatList.appendChild(li);
+            });
+            // Add event listeners after populating
+            document.querySelectorAll('.chat-item').forEach(item => item.addEventListener('click', () => switchChat(item.dataset.chat)));
+        };
+        
         const createMessageBubble = (msg) => {
             const bubbleWrapper = document.createElement('div');
             const bubble = document.createElement('div');
-            bubbleWrapper.className = `flex mb-4 animate-fade-in ${msg.type === 'q' ? 'justify-end' : 'justify-start'}`;
-            bubble.className = `p-3 max-w-lg shadow text-gray-800 ${msg.type === 'q' ? 'message-bubble-out' : 'message-bubble-in'}`;
-            bubble.innerHTML = `<strong>${msg.type === 'q' ? 'سوال' : 'پاسخ'}:</strong><br>${msg.text}`;
+            // Question on the left (in), Answer on the right (out)
+            const isQuestion = msg.type === 'q';
+            bubbleWrapper.className = `flex mb-4 animate-fade-in ${isQuestion ? 'justify-start' : 'justify-end'}`;
+            bubble.className = `p-3 max-w-lg shadow text-gray-800 ${isQuestion ? 'message-bubble-in' : 'message-bubble-out'}`;
+            bubble.innerHTML = `<strong>${isQuestion ? 'سوال' : 'پاسخ'}:</strong><br>${msg.text}`;
             bubbleWrapper.appendChild(bubble);
             return bubbleWrapper;
         };
 
+        const showTypingIndicator = (isIncoming) => {
+            if (document.getElementById('typing-indicator')) return;
+            const indicator = document.createElement('div');
+            indicator.id = 'typing-indicator';
+            indicator.className = `flex mb-4 animate-fade-in ${isIncoming ? 'justify-start' : 'justify-end'}`;
+            indicator.innerHTML = `
+                <div class="${isIncoming ? 'message-bubble-in' : 'message-bubble-out'} p-3 max-w-lg shadow flex items-center gap-1">
+                    <div class="typing-indicator"><span></span><span></span><span></span></div>
+                </div>`;
+            messagesContainer.appendChild(indicator);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        };
+        
+        const removeTypingIndicator = () => {
+            const indicator = document.getElementById('typing-indicator');
+            if (indicator) indicator.remove();
+        };
+
         const processMessageQueue = () => {
-            if (messageQueue.length === 0) { isTyping = false; return; }
+            if (messageQueue.length === 0) {
+                isTyping = false;
+                const currentChat = allData.find(c => c.id === currentChatId);
+                if (currentChat && currentChat.quiz && currentChat.quiz.length > 0) {
+                    showStartQuizButton();
+                }
+                return;
+            }
             isTyping = true;
             const nextMessage = messageQueue.shift();
-            showTypingIndicator();
+            showTypingIndicator(nextMessage.type === 'q');
+            
             setTimeout(() => {
                 removeTypingIndicator();
                 const bubble = createMessageBubble(nextMessage);
                 messagesContainer.appendChild(bubble);
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
                 processMessageQueue();
-            }, Math.random() * 1000 + 500);
+            }, Math.random() * 1500 + 800); // Slower typing
         };
         
-        const showTypingIndicator = () => { /* ... (same as before) ... */ };
-        const removeTypingIndicator = () => { /* ... (same as before) ... */ };
+        const showStartQuizButton = () => {
+            const buttonWrapper = document.createElement('div');
+            buttonWrapper.className = 'flex justify-center my-4 animate-fade-in';
+            buttonWrapper.innerHTML = `<button id="start-lesson-quiz" class="bg-blue-500 text-white font-bold py-2 px-6 rounded-full hover:bg-blue-600 transition-transform transform hover:scale-105">شروع آزمون این درس</button>`;
+            messagesContainer.appendChild(buttonWrapper);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            document.getElementById('start-lesson-quiz').addEventListener('click', startLessonQuiz);
+        };
 
         const switchChat = (chatId) => {
             if (isTyping) return;
             currentChatId = chatId;
             quizState.active = false;
             messageFooter.classList.remove('hidden');
+            messagesContainer.innerHTML = '';
+            
+            const chatInfo = allData.find(c => c.id === chatId);
+            if (!chatInfo) return;
 
-            // Update header & active item
-            chatHeaderTitle.textContent = chatData[chatId].title;
-            chatHeaderImg.src = chatData[chatId].img;
-            chatHeaderStatus.textContent = chatData[chatId].status;
-            chatItems.forEach(item => item.classList.toggle('active-chat', item.dataset.chat === chatId));
+            chatHeaderTitle.textContent = chatInfo.title;
+            chatHeaderIcon.innerHTML = chatInfo.icon;
+            chatHeaderIcon.style.backgroundColor = chatInfo.iconColor || '#888';
+            chatHeaderStatus.textContent = chatInfo.status || 'آنلاین';
+            
+            document.querySelectorAll('.chat-item').forEach(item => item.classList.toggle('active-chat', item.dataset.chat === chatId));
             
             mainContent.classList.remove('hidden'); mainContent.classList.add('flex');
             placeholder.classList.add('hidden'); placeholder.classList.remove('md:flex');
             if (window.innerWidth < 768) { chatListContainer.classList.add('hidden'); }
 
-            messagesContainer.innerHTML = '';
-            if (chatId === 'quiz') {
-                startQuiz();
-            } else {
-                messageQueue = [...chatData[chatId].messages];
-                processMessageQueue();
-            }
+            messageQueue = [...chatInfo.messages];
+            processMessageQueue();
         };
 
-        const startQuiz = () => {
+        const startLessonQuiz = () => {
+            const chatInfo = allData.find(c => c.id === currentChatId);
+            if (!chatInfo || !chatInfo.quiz) return;
+
             quizState.active = true;
             messageFooter.classList.add('hidden');
-            messagesContainer.innerHTML = '';
+            document.getElementById('start-lesson-quiz')?.parentElement.remove();
 
-            // Shuffle and pick 10 questions
-            const shuffled = [...quizQuestions].sort(() => 0.5 - Math.random());
-            quizState.questions = shuffled.slice(0, 10);
+            const shuffled = [...chatInfo.quiz].sort(() => 0.5 - Math.random());
+            quizState.questions = shuffled;
             quizState.currentQ = 0;
             quizState.score = 0;
 
             const startBubble = document.createElement('div');
             startBubble.className = 'message-bubble-in p-4 text-center animate-fade-in';
-            startBubble.innerHTML = `<h3 class="text-xl font-bold mb-2">آزمون شروع شد!</h3><p>برای ۱۰ سوال بعدی آماده باشید. موفق باشید!</p>`;
+            startBubble.innerHTML = `<h3 class="text-xl font-bold mb-2">آزمون '${chatInfo.title}' شروع شد!</h3><p>موفق باشید!</p>`;
             messagesContainer.appendChild(startBubble);
             
             setTimeout(displayQuizQuestion, 2000);
@@ -305,9 +279,8 @@
         const handleAnswer = (e) => {
             const selectedIndex = parseInt(e.target.dataset.index);
             const question = quizState.questions[quizState.currentQ];
-            const options = document.querySelectorAll('.quiz-option');
+            const options = e.target.parentElement.querySelectorAll('.quiz-option');
 
-            // Disable all options
             options.forEach(opt => opt.disabled = true);
 
             if (selectedIndex === question.a) {
@@ -335,23 +308,21 @@
             resultBubble.innerHTML = `
                 <h3 class="text-xl font-bold mb-2">آزمون تمام شد!</h3>
                 <p class="mb-4">${message}</p>
-                <button id="restart-quiz-btn" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-600">شروع مجدد آزمون</button>
+                <button id="restart-quiz-btn" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full hover:bg-blue-600">بازگشت به لیست دروس</button>
             `;
             messagesContainer.appendChild(resultBubble);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
 
-            document.getElementById('restart-quiz-btn').addEventListener('click', () => switchChat('quiz'));
+            document.getElementById('restart-quiz-btn').addEventListener('click', () => switchChat('intro'));
         };
 
-        // Event Listeners
-        chatItems.forEach(item => item.addEventListener('click', () => switchChat(item.dataset.chat)));
+        // Event Listeners & Initial Setup
         backButton.addEventListener('click', () => {
             chatListContainer.classList.remove('hidden');
             mainContent.classList.add('hidden'); mainContent.classList.remove('flex');
         });
         menuButton.addEventListener('click', () => alert('منو در حال ساخت است!'));
 
-        // Initial Setup
         const style = document.createElement('style');
         style.innerHTML = `@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } } .animate-fade-in { animation: fadeIn 0.5s ease-out forwards; }`;
         document.head.appendChild(style);
@@ -364,6 +335,7 @@
              placeholder.classList.add('hidden'); placeholder.classList.remove('md:flex');
         }
 
+        populateChatList();
         switchChat('intro');
     });
     </script>
